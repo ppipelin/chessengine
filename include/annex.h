@@ -78,16 +78,7 @@ UInt perft(BoardParser &b, UInt depth = 1)
 	UInt nodes = 0;
 	for (UInt tile = 0; tile < BOARD_SIZE2; ++tile)
 	{
-		// #define TEST_CHECK_BASE
 		// #define TEST_CHECK_COVERING
-#ifdef TEST_CHECK_BASE
-		UInt originalDepth = 4;
-		std::vector<UInt> v = { 12, 51, 5 };
-		if (originalDepth - depth < v.size() && tile != v[originalDepth - depth])
-		{
-			continue;
-		}
-#endif
 		std::vector<UInt> subMoveList = std::vector<UInt>();
 		const Piece *piece = b.boardParsed()->board()[tile];
 		if (piece == nullptr || (piece->isWhite() != b.isWhiteTurn()))
@@ -123,7 +114,6 @@ UInt perft(BoardParser &b, UInt depth = 1)
 #endif
 #ifdef TEST_CHECK_COVERING
 	bool wasInCheck = false;
-	b.displayCLI();
 
 	if (b.inCheck(b.isWhiteTurn()))
 	{
